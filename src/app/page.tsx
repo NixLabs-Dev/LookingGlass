@@ -64,8 +64,6 @@ export default function Home() {
   }
  
   if (error) return <div>failed to load</div>
-  if (isLoading) return <></>
-
   return (
     <>
       <NavBar/>
@@ -91,12 +89,16 @@ export default function Home() {
                 <div className="my-4">
                   <label htmlFor="locations" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Source Site</label>
                   <select onChange={event => setSite(event.target.value)} id="locations" name="location" className="bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5">
-                  {Object.keys(data).map((key) => {
+                  {data ? (
+                    <>
+                    {Object.keys(data).map((key: string) => {
                       const site = data[key];
                       return (
                           <option value={key}>{site.name}</option>
                       );
                   })}
+                    </>
+                  ) : (<></>)}
                   </select>
                 </div>
                 <div className="my-4">
