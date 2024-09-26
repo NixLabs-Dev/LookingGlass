@@ -29,6 +29,7 @@ export default function Home() {
   //API Response State
   const [success, setSuccess] = useState(false)
   const [output, setOutput] = useState("")
+  const [command, setCommand] = useState("")
   const [hostname, setHostname] = useState("")
 
   useEffect(() => {
@@ -51,8 +52,10 @@ export default function Home() {
       .then(response => response.json())
       .then((json: CommandAPIResponse) => {
         setIsWaitingRouterResponse(false)
-        if(json.success == true){
-          setOutput(json.output!.rawCommandOutput)
+        if(json.success == true && json.output){
+          setOutput(json.output.rawCommandOutput)
+          setCommand(json.output.command)
+          setHostname(json.output.hostname)
           setSuccess(json.success)
         }else{
           setError(json.error!)
@@ -117,7 +120,7 @@ export default function Home() {
             <div className="mt-12 bg-zinc-900 w-full flex flex-col rounded-2xl py-4 px-8 overflow-scroll">
               <h4 className="text-white font-bold">Router Output</h4>
               <pre className="text-white">
-<span className="text-gray-400">rtr1-edge.hopky.nixlabs.dev&gt; traceroute 1.1.1.1</span>
+<span className="text-gray-400">{hostname}&gt; {command}</span>
 <br/>
 {output}
 <br/>
