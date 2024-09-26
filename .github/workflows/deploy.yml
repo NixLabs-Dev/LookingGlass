@@ -1,0 +1,16 @@
+name: deploy on webserver
+on: [push]
+jobs:
+  deploy:
+    name: Clone updates
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: nixlabs.dev
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: 22
+        script: cd /opt/looking-glass; git pull; pnpm i; pnpm run build
