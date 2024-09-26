@@ -13,4 +13,4 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         port: 22
-        script: cd /opt/looking-glass; git pull; pnpm i; pnpm run build
+        script: cd /opt/looking-glass; git pull; pnpm i; pnpm run build; /scripts/restart.sh looking-glass
