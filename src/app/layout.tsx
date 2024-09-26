@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "@/res/globals.scss";
+import "@public/globals.scss";
 import NavBar from "@/components/NavBar";
 
 const geistSans = localFont({
-  src: "../res/fonts/GeistVF.woff",
+  src: "../../public/fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 const geistMono = localFont({
-  src: "../res/fonts/GeistMonoVF.woff",
+  src: "../../public/fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
@@ -26,6 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-black">
+      <link rel="icon" type="image/png" href="/logo.png" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} h-screen`}
       >
