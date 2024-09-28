@@ -1,0 +1,15 @@
+[
+    {
+        "name": "Hopkinsville, KY",
+        "address": "74.113.97.1",
+        "code": "rtr-edge.hopky",
+        "hostname": "rtr-edge.hopky.nixlabs.dev"
+    },
+    {
+        "name": "Amsterdam, NL",
+        "address": "45.146.4.91",
+        "code": "rtr-edge.amsnl",
+        "hostname": "rtr-edge.amsnl.nixlabs.dev"
+    }
+
+]

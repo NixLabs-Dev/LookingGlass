@@ -2,7 +2,7 @@ import { Sites } from '@/util/vars';
 import {connectToSite} from '@/util/sshWrapper'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {isIPv4, isIPv6} from 'net'
-import { errors, HostType } from '@/util/util';
+import { errors, getRouter, HostType } from '@/util/util';
 import { CommandAPIResponse } from '@/util/api';
 
 type RequestData = {
@@ -22,7 +22,7 @@ export default async function handler(
   
   const parsedInput = HostType(host)
   
-  if(!(siteCode in Sites)){
+  if(!getRouter(siteCode)){
     return res.status(422).json({ error: errors.validation.invalidSite, success: false, timestamp: Date.now().toString() })
   }
 
@@ -30,8 +30,10 @@ export default async function handler(
     return res.status(422).json({ error: errors.validation.invalidHost, success: false, timestamp: Date.now().toString() })
   }
 
-  const {ssh, site} = await connectToSite(siteCode)
-
+  const {ssh, router} = await connectToSite(siteCode)
+  if(!router){
+    return res.status(404).json({ error: errors.noRouter, success: false, timestamp: Date.now().toString() })
+  }
   if(!ssh){
     return res.status(422).json({ error: errors.noConnect, success: false, timestamp: Date.now().toString() })
   }
@@ -40,7 +42,7 @@ export default async function handler(
     const data = await ssh.exec("/opt/vyatta/bin/vyatta-op-cmd-wrapper", ['traceroute', parsedInput.host])
     res.status(200).json({ output: {
       command: `traceroute ${parsedInput.host}`,
-      hostname: site.hostname,
+      hostname: router.hostname,
       rawCommandOutput: data
     }, success: true, timestamp: Date.now().toString() })
   } catch (error) {
