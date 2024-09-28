@@ -12,8 +12,6 @@ export const getStaticProps = (async () => {
     const filePath = path.join(configDirectory, "routers.json")
     const fileContents = await fs.readFile(filePath, 'utf8')
 
-    // By returning { props: { posts } }, the Blog component
-    // will receive `posts` as a prop at build time
     return {
         props: {
         routers: JSON.parse(fileContents),
@@ -22,19 +20,6 @@ export const getStaticProps = (async () => {
 }) satisfies GetStaticProps<{
         routers: RouterType[]
       }>
-
-// const sites = Sites
-
-// const geistSans = localFont({
-//     src: "../../public/fonts/GeistVF.woff",
-//     variable: "--font-geist-sans",
-//     weight: "100 900",
-// });
-// const geistMono = localFont({
-//     src: "../../public/fonts/GeistMonoVF.woff",
-//     variable: "--font-geist-mono",
-//     weight: "100 900",
-// });
 
 type ActionState = "ping"|"trace"|"route"
 type ErrorType   = string|null
@@ -114,9 +99,9 @@ export default function Page({
                     <div className="my-4">
                     <label htmlFor="locations" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Source Site</label>
                     <select onChange={event => setSite(event.target.value)} id="locations" name="location" className="bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5">
-                        {routers.map((site: RouterType) => (
+                      {routers.map((site: RouterType) => (
                         <option value={site.code}>{site.name}</option>
-                        ))}
+                      ))}
                     </select>
                     </div>
                     <div className="my-4">
