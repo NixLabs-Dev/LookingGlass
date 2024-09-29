@@ -64,10 +64,11 @@ export default function Page({
           setOutput(json.output.rawCommandOutput)
           setCommand(json.output.command)
           setHostname(json.output.hostname)
-          setSuccess(json.success)
+          setSuccess(true)
+          setError("")
         }else{
           setError(json.error!)
-          setSuccess(json.success)
+          setSuccess(false)
         }
       })
       .catch(error => console.error(error));
