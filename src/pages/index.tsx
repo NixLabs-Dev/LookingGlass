@@ -8,17 +8,22 @@ import path from 'path'
 
 export const getStaticProps = (async () => {
     const configDirectory = path.join(process.cwd(), '/src/util')
+    const globalDirectory = path.join(process.cwd(), '/')
 
     const filePath = path.join(configDirectory, "routers.json")
     const fileContents = await fs.readFile(filePath, 'utf8')
 
+    const versionPath = path.join(globalDirectory, "version")
+    const versionContents = await fs.readFile(versionPath, 'utf8')
     return {
         props: {
-        routers: JSON.parse(fileContents),
+          routers: JSON.parse(fileContents),
+          build: versionContents
         },
     }
 }) satisfies GetStaticProps<{
-        routers: RouterType[]
+        routers: RouterType[],
+        build: string
       }>
 
 type ActionState = "ping"|"trace"|"route"
@@ -27,6 +32,7 @@ type ErrorType   = string|null
 
 export default function Page({
     routers,
+    build
   }: InferGetStaticPropsType<typeof getStaticProps>) {
 
   //General State
@@ -135,6 +141,10 @@ export default function Page({
                 </div>
             )}
             </div>
+        </div>
+        <div className="absolute bottom-0 text-white w-screen flex flex-row justify-center text-white opacity-20 p-4">
+          <p>Designed and maintained by the NixLabs Network Operations Center.</p>
+          <a className="ml-auto" href={`https://github.com/NixLabs-Dev/LookingGlass/commit/${build}`}>Build version {build.substring(0, 8)}</a>
         </div>
         </>
   );

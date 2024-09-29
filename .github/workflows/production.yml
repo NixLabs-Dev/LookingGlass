@@ -15,11 +15,25 @@ jobs:
           registry: ghcr.io
           username: ${{github.actor}}
           password: ${{secrets.GITHUB_TOKEN}}
+      - name: Checkout code
+        uses: actions/checkout@v2
 
+      - name: Copy file to working directory
+        run: |
+          echo ${{github.sha}} > $(GITHUB_WORKSPACE)/version 
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v1
+        with:
+          dockerfile: Dockerfile
+          context: $(GITHUB_WORKSPACE)
+        
       - name: Build and push the Docker image
         uses: docker/build-push-action@v3
         with:
           push: true
+          build-args: |
+            COMMIT_SHA=${{github.sha}}
           tags: |
             ghcr.io/nixlabs-dev/looking-glass:${{github.sha}}
   deploy:
