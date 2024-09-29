@@ -2,7 +2,7 @@
 FROM node:22-alpine AS BUILD_IMAGE
 WORKDIR /app
 COPY package*.json ./
-RUN npm i
+RUN npm install --force
 COPY . .
 RUN npm run build
 
