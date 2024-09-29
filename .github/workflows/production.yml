@@ -21,6 +21,10 @@ jobs:
       - name: Copy file to working directory
         run: |
           echo ${{github.sha}} > $GITHUB_WORKSPACE/version 
+      - name: Debug List Files
+        run: |
+          ls $GITHUB_WORKSPACE
+          ls
 
       - name: Build Docker image
         uses: docker/build-push-action@v1
