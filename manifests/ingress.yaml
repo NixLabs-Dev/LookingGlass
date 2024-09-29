@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+ name: looking-glass
+ namespace: nixlabs
+ annotations:
+   cert-manager.io/issuer: "le-production"
+spec:
+ tls:
+   - hosts:
+       - lg.nixlabs.dev
+     secretName: tls-looking-glass-ingress-http
+ rules:
+   - host: lg.nixlabs.dev
+     http:
+       paths:
+         - path: /
+           pathType: Prefix
+           backend:
+             service:
+               name: looking-glass
+               port:
+                 name: web

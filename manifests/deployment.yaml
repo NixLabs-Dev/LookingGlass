@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: looking-glass
+ namespace: nixlabs
+spec:
+ selector:
+   matchLabels:
+     app: looking-glass
+ template:
+   metadata:
+     labels:
+       app: looking-glass
+   spec:
+     containers:
+       - name: looking-glass
+         image: ghcr.io/nixlabs-dev/looking-glass:0707ca5ddae2118e1059aed1455d81cf9691bb0c
+         ports:
+           - name: web
+             containerPort: 80
+     imagePullSecrets:
+       - name: ghcr
