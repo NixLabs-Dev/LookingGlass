@@ -21,13 +21,14 @@ jobs:
       - name: Copy file to working directory
         run: |
           echo ${{github.sha}} > $GITHUB_WORKSPACE/version 
-      - name: Build Docker image and push
-        uses: docker/build-push-action@v1
+      - name: Build and push the Docker image
+        uses: docker/build-push-action@v3
         with:
+          push: true
           dockerfile: Dockerfile
           context: $(GITHUB_WORKSPACE)
           tags: |
-            ${{github.sha}}
+            ghcr.io/nixlabs-dev/looking-glass:${{github.sha}}
   deploy:
     name: Deploy
     needs: [ build ]
