@@ -17,6 +17,6 @@ spec:
          image: ghcr.io/nixlabs-dev/looking-glass:0707ca5ddae2118e1059aed1455d81cf9691bb0c
          ports:
            - name: web
-             containerPort: 80
+             containerPort: 3000
      imagePullSecrets:
        - name: ghcr
