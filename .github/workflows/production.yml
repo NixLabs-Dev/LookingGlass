@@ -26,8 +26,8 @@ jobs:
         with:
           dockerfile: Dockerfile
           context: $(GITHUB_WORKSPACE)
-        tags: |
-          ghcr.io/nixlabs-dev/looking-glass:${{github.sha}}
+          tags: |
+            ghcr.io/nixlabs-dev/looking-glass:${{github.sha}}
   deploy:
     name: Deploy
     needs: [ build ]
