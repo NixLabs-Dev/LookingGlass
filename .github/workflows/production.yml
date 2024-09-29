@@ -21,25 +21,11 @@ jobs:
       - name: Copy file to working directory
         run: |
           echo ${{github.sha}} > $GITHUB_WORKSPACE/version 
-      - name: Debug List Files
-        run: |
-          ls $GITHUB_WORKSPACE
-          ls
-
-      - name: Build Docker image
+      - name: Build and push the Docker image
         uses: docker/build-push-action@v1
         with:
           dockerfile: Dockerfile
           context: $(GITHUB_WORKSPACE)
-        
-      - name: Build and push the Docker image
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          build-args: |
-            COMMIT_SHA=${{github.sha}}
-          tags: |
-            ghcr.io/nixlabs-dev/looking-glass:${{github.sha}}
   deploy:
     name: Deploy
     needs: [ build ]
