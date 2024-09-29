@@ -18,5 +18,11 @@ spec:
          ports:
            - name: web
              containerPort: 3000
+        env: 
+        - name: SSH_KEY
+            valueFrom:
+              secretKeyRef:
+                name: looking-glass-environment
+                key: SSH_KEY
      imagePullSecrets:
        - name: ghcr
