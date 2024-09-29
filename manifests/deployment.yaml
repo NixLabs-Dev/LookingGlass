@@ -4,6 +4,7 @@ metadata:
  name: looking-glass
  namespace: nixlabs
 spec:
+ replicas: 4
  selector:
    matchLabels:
      app: looking-glass
@@ -14,7 +15,7 @@ spec:
    spec:
      containers:
        - name: looking-glass
-         image: ghcr.io/nixlabs-dev/looking-glass:0707ca5ddae2118e1059aed1455d81cf9691bb0c
+         image: ghcr.io/nixlabs-dev/looking-glass:3708214ba273819665d973ea496e555815c0914d
          ports:
            - name: web
              containerPort: 3000

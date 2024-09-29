@@ -94,6 +94,7 @@ export default function Page({
                         <option value={"ping"}>ICMP Ping</option>
                         <option value={"trace"}>Traceroute</option>
                         <option value={"route"}>BGP Route Lookup</option>
+                        <option value={"local"}>Local Route Lookup</option>
                     </select>
                     </div>
                     <div className="my-4">
